@@ -1,19 +1,19 @@
 "use client";
 
 import type { FormProps } from "antd";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 type FieldType = {
-  userName?: string;
+  fullName?: string;
+  email?: string;
   password?: string;
-  remember?: string;
 };
 
-const SigninForm = () => {
+const SignupForm = () => {
   const router = useRouter();
 
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
@@ -49,25 +49,28 @@ const SigninForm = () => {
       className="shadow-md rounded-md p-10 w-[70%] sm:w-[400px] space-y-3.5 bg-gradient-to-b from-blue-300 via-white to-gray-100"
       name="basic"
       layout="vertical"
-      initialValues={{
-        userName: "admin",
-        password: "abcd1234@",
-        remember: true,
-      }}
       onFinish={onFinish}
       autoComplete="off"
     >
       <div className="space-y-1 mb-2">
-        <h2 className="text-center font-bold text-3xl">Sign In</h2>
+        <h2 className="text-center font-bold text-3xl">Sign Up</h2>
         <p className="text-center text-gray-500">
-          Enter your credentials to access the system.
+          Create your account to access the system.
         </p>
       </div>
 
       <Form.Item<FieldType>
-        label="Username"
-        name="userName"
-        rules={[{ required: true, message: "Please input your username!" }]}
+        label="Full Name"
+        name="fullName"
+        rules={[{ required: true, message: "Please input your fullname!" }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item<FieldType>
+        label="Email"
+        name="email"
+        rules={[{ required: true, message: "Please input your email!" }]}
       >
         <Input />
       </Form.Item>
@@ -80,28 +83,24 @@ const SigninForm = () => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item<FieldType> name="remember" valuePropName="checked">
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
       <Form.Item>
         <Button
           type="primary"
           htmlType="submit"
           className="w-full rounded-full"
         >
-          Signin
+          Signup
         </Button>
       </Form.Item>
 
       <p>
-        Don&apos;t have an account?{" "}
-        <Link href="/signup" className="text-blue-500 font-semibold">
-          Sign up
+        Already have an account?{" "}
+        <Link href="/" className="text-blue-500 font-semibold">
+          Sign in
         </Link>
       </p>
     </Form>
   );
 };
 
-export default SigninForm;
+export default SignupForm;
